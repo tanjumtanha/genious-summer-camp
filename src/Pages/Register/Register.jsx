@@ -30,8 +30,7 @@ const Register = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
-                updateUserData(data.name, data.photoUrl)
+                updateUserData(loggedUser,data.name, data.photoURL)
                     .catch(error => console.log(error))
             })
         reset();

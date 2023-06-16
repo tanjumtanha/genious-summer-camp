@@ -3,20 +3,25 @@ import { AuthContext } from '../providers/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 
 const useCart = () => {
-    const { user, loading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-    const { refetch, data: cart = [] } = useQuery({
-        queryKey: ['selectedClass', user?.email],
-        enabled: !loading,
-        queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/selectedClass?email=${user?.email}`);
-            const data = await res.json();
-            console.log('data from fetch', data);
-            return data;
-        },
-    });
+  const { refetch, data: cart = [] } = useQuery({
+    queryKey: ['selectedClass', user?.email],
+    enabled: !loading,
+    queryFn: async () => {
+      if (user) {
+        const res = await fetch(`http://localhost:5000/selectedClass?email=${user.email}`);
+        const data = await res.json();
+        console.log('data from fetch', data);
+        return data;
+      } else {
+        return [];
+      }
+    },
+  });
 
-    return [cart, refetch];
+  return [cart, refetch];
 };
 
 export default useCart;
+

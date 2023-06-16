@@ -1,9 +1,10 @@
 import React from 'react';
 import useCart from '../../../hooks/useCart';
 import { Helmet } from 'react-helmet-async';
-import { FiTrash } from 'react-icons/fi';
 import { Loader } from 'react-feather';
 import Swal from 'sweetalert2';
+import Title from '../../../components/Title/Title';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const SelectedClass = () => {
     const [cart, refetch] = useCart();
@@ -41,8 +42,8 @@ const SelectedClass = () => {
             <Helmet>
                 <title>Music School - Selected Class</title>
             </Helmet>
+            <Title heading={'My Selected Classes'}></Title>
             <div>
-                <h3 className="text-xl font-semibold mb-4">My Selected Classes</h3>
                 {isLoading ? (
                     <div className="flex items-center justify-center h-48">
                         <Loader className="animate-spin h-8 w-8 text-gray-500" />
@@ -53,6 +54,7 @@ const SelectedClass = () => {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr>
+                                <th className="py-2 px-4 border-b-2 border-gray-400">#</th>
                                 <th className="py-2 px-4 border-b-2 border-gray-400">Picture</th>
                                 <th className="py-2 px-4 border-b-2 border-gray-400">Class Name</th>
                                 <th className="py-2 px-4 border-b-2 border-gray-400">Instructor</th>
@@ -62,8 +64,9 @@ const SelectedClass = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {cart.map((classItem) => (
+                            {cart.map((classItem,index) => (
                                 <tr key={classItem._id}>
+                                    <td className='text-center'>{index+1}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">
                                         <img
                                             src={classItem.image}
@@ -71,15 +74,15 @@ const SelectedClass = () => {
                                             className="rounded-full h-10 w-10"
                                         />
                                     </td>
-                                    <td className="py-2 px-4 border-b border-gray-300">{classItem.name}</td>
-                                    <td className="py-2 px-4 border-b border-gray-300">{classItem.instructor}</td>
-                                    <td className="py-2 px-4 border-b border-gray-300">{classItem.price}</td>
-                                    <td className="py-2 px-4 border-b border-gray-300">
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.name}</td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.instructor}</td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.price}</td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">
                                         <button
                                             className="text-red-500 hover:text-red-700"
                                             onClick={() => handleDelete(classItem._id)}
                                         >
-                                            <FiTrash className="text-xl" />
+                                            <FaTrashAlt className="text-xl" />
                                         </button>
                                     </td>
                                     <td>

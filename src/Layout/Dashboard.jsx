@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaHome, FaWallet } from 'react-icons/fa';
-import { Link, Outlet } from 'react-router-dom';
-import Title from '../components/Title/Title';
+import { NavLink, Outlet } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
 const Dashboard = () => {
@@ -10,7 +9,6 @@ const Dashboard = () => {
             <Helmet>
                 <title>Music School - Dashboard</title>
             </Helmet>
-            <Title heading="Dashboard" />
             <div className="drawer lg:drawer-open">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col items-center justify-center">
@@ -20,14 +18,14 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 h-full bg-violet-200 text-blue-700">
+                    <ul className="menu p-4 w-80 h-full bg-violet-400 text-blue-700">
                     <h2 className='text-2xl text-red-500 text-center'>Music School Dashboard</h2>
                         {/* Sidebar content here */}
-                        <li><Link to='mySelectedClasses'>My Selected Class</Link></li>
-                        <li><Link to='myEnrollClasses'>My Enroll Class</Link></li>
-                        <li><Link to='payment'><FaWallet></FaWallet>Payment</Link></li>
+                        <li><NavLink to='mySelectedClasses'>My Selected Class</NavLink></li>
+                        <li><NavLink to='enrollClasses'>My Enroll Class</NavLink></li>
+                        <li><NavLink to='paymentHistory'><FaWallet></FaWallet>Payments</NavLink></li>
                         <div className='divider'></div>
-                        <li><Link to='/'> <FaHome></FaHome>Home</Link></li>
+                        <li><NavLink to='/'> <FaHome></FaHome>Home</NavLink></li>
                     </ul>
 
                 </div>
