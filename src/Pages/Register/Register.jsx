@@ -1,21 +1,24 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaGoogle } from 'react-icons/fa';
 import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const [error, setError] = useState('');
     const { createUser, updateUserData, googleSignIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handelGoogleSignIn = () => {
-        //google sign in 
+        // googl sign in
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 navigate(from, { replace: true });
             })
             .catch(error => {
@@ -26,14 +29,20 @@ const Register = () => {
     const onSubmit = (data) => {
         createUser(data.email, data.password)
             .then(result => {
-
                 const loggedUser = result.user;
                 console.log(loggedUser);
-
-                updateUserData(data.name, data.photoURL)
+                updateUserData(data.name, data.photoUrl)
                     .catch(error => console.log(error))
             })
         reset();
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'User created successfully.',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        navigate('/login');
     };
 
     return (
@@ -41,7 +50,7 @@ const Register = () => {
             <Helmet>
                 <title>Music School-Register</title>
             </Helmet>
-            <div className="flex flex-col lg:flex-row h-screen">
+            <div className="flex flex-col lg:flex-row h-screen mb-4">
                 <div className="bg-blue-400 lg:w-1/2">
                     <img className="h-full w-full object-cover" src="https://i.ibb.co/THcb0m4/summer-2.webp" alt="Registration" />
                 </div>
@@ -119,14 +128,11 @@ const Register = () => {
                             )}
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="photoUrl" className="block text-gray-700 text-sm font-bold mb-2">Photo URL</label>
-                            <input
-                                type="text"
-                                id="photoUrl"
-                                className="w-full px-3 py-2 placeholder-gray-300 text-gray-800 focus:outline-none rounded-md border"
-                                placeholder="Enter your photo URL"
-                                {...register('photoUrl')}
-                            />
+                            <label className="label">
+                                <span className="block text-gray-700 text-sm font-bold mb-2">Photo URL</span>
+                            </label>
+                            <input type="text"  {...register("photoURL", { required: true })} placeholder="Enter your photo URL" className="w-full px-3 py-2 placeholder-gray-300 text-gray-800 focus:outline-none rounded-md border" />
+                            {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
                         </div>
                         <button
                             type="submit"

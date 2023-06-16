@@ -1,15 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Title from '../../components/Title/Title';
 import classNames from 'classnames';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const AllClass = () => {
     const [classes, setClasses] = useState([]);
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetch('http://localhost:5000/allClass')
@@ -23,6 +26,33 @@ const AllClass = () => {
             });
     }, []);
 
+    const handelAddClass = item => {
+        console.log(item)
+        if (user && user.email) {
+            const { _id, name, image, instructor, price } = item; // Destructure the item object to access the image property
+            const cartItem = { classId: _id, name, image, instructor, price, email: user.email }
+            fetch('http://localhost:5000/selectedClass', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(cartItem)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.insertedId) {
+                        //refetch(); // refetch cart to update the number of items in the cart
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'You have taken the class successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                })
+        }
+    }
     return (
         <section className="container mx-auto bg-violet-200 p-4">
             <Helmet>
@@ -62,7 +92,7 @@ const AllClass = () => {
                                 <p className="text-red-500">No available seats.</p>
                             )
                                 : (
-                                    <button className="btn btn-primary">Select Class</button>
+                                    <button onClick={() => handelAddClass(musicClass)} className="btn btn-primary">Select Class</button>
                                 )}
                     </div>
                 ))}
