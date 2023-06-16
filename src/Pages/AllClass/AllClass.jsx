@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Title from '../../components/Title/Title';
 import classNames from 'classnames';
@@ -7,12 +6,12 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import useCart from '../../hooks/useCart';
 
 const AllClass = () => {
     const [classes, setClasses] = useState([]);
+    const [,refetch] = useCart();
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(() => {
         fetch('http://localhost:5000/allClass')
@@ -41,7 +40,7 @@ const AllClass = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
-                        //refetch(); // refetch cart to update the number of items in the cart
+                        refetch(); // refetch cart to update the number of items in the cart
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
