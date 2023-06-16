@@ -2,11 +2,13 @@ import React from 'react';
 import { FaHome, FaWallet } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import useAdmin from '../hooks/useAdmin';
+import useInstructor from '../hooks/useInstructor';
 
 const Dashboard = () => {
 
-    const isAdmin = true;
-    const isInstructor = true;
+    const [isAdmin] = useAdmin();
+    const [isInstructor] =useInstructor();
     return (
         <section className='bg-blue-200 p-4'>
             <Helmet>
