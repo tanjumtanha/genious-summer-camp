@@ -13,6 +13,7 @@ import SelectedClass from "../Pages/Dashboard/SelectedClass/SelectedClass";
 import EnrollClass from "../Pages/Dashboard/EnrollClass/EnrollClass";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 
 
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
             {
                 path:'paymentHistory',
                 element:<PaymentHistory></PaymentHistory>
+            },
+            {
+                path:'manageUser',
+                element:<AllUsers></AllUsers>
             },
         ]
     },
