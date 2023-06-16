@@ -68,15 +68,13 @@ const Header = () => {
                     >
                         Classes
                     </Link>
-                    {user && (
-                        <Link
-                            to="/dashboard"
-                            className="block mt-4 ml-2 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
-                            onClick={toggleMenu}
-                        >
-                            Dashboard
-                        </Link>
-                    )}
+                    <Link
+                        to="/dashboard"
+                        className="block mt-4 ml-2 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
+                        onClick={toggleMenu}
+                    >
+                        Dashboard
+                    </Link>
                 </div>
                 <div className="mt-4 ml-4 lg:mt-0">
                     {user ? (

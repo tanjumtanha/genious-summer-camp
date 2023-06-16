@@ -18,8 +18,20 @@ const Register = () => {
         // googl sign in
         googleSignIn()
             .then(result => {
-                const user = result.user;
-                navigate(from, { replace: true });
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(saveUser)
+                })
+                    .then(res => res.json())
+                    .then(() => {
+                        navigate(from, { replace: true });
+                    })
             })
             .catch(error => {
                 setError(error.message)
@@ -30,18 +42,34 @@ const Register = () => {
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                updateUserData(loggedUser,data.name, data.photoURL)
+                updateUserData(loggedUser, data.name, data.photoURL)
+                    .then(() => {
+                        const saveUser = { name: data.name, email: data.email }
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/login');
+                                }
+                            })
+                    })
                     .catch(error => console.log(error))
             })
-        reset();
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'User created successfully.',
-            showConfirmButton: false,
-            timer: 1500
-        });
-        navigate('/login');
+
     };
 
     return (
