@@ -10,7 +10,7 @@ const TopClass = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        fetch('http://localhost:5000/topClass')
+        fetch('https://genious-summer-camp-server.vercel.app/topClass')
             .then((res) => res.json())
             .then((data) => {
                 setClasses(data);

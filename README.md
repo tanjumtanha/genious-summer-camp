@@ -14,4 +14,4 @@
 * react-anime
 * react hook form etc.
 
-# live site link: 
+# live site link: https://genious-summer-camp.web.app/

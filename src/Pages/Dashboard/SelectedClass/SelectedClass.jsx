@@ -25,7 +25,7 @@ const SelectedClass = () => {
             });
 
             if (result.isConfirmed) {
-                await fetch(`http://localhost:5000/selectedClass/${classId}`, {
+                await fetch(`https://genious-summer-camp-server.vercel.app/selectedClass/${classId}`, {
                     method: 'DELETE',
                 });
                 refetch();
