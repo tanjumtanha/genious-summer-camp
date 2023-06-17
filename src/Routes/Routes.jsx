@@ -14,6 +14,8 @@ import EnrollClass from "../Pages/Dashboard/EnrollClass/EnrollClass";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AddClass from "../Pages/Dashboard/AddClass/AddClass";
+import InstructorRoute from "./InstructorRoute";
 
 
 
@@ -63,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path:'manageUser',
                 element:<AllUsers></AllUsers>
+            },
+            {
+                path:'addClass',
+                element:<InstructorRoute><AddClass></AddClass></InstructorRoute>
             },
         ]
     },

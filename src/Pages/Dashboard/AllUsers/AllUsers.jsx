@@ -85,7 +85,7 @@ const AllUsers = () => {
     };
 
     return (
-        <section>
+        <section className='w-full'>
             <Helmet>
                 <title>Music School - All User</title>
             </Helmet>
