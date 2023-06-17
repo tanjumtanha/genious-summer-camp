@@ -73,7 +73,7 @@ const Register = () => {
     };
 
     return (
-        <div>
+        <div className='mb-4 bg-blue-200'>
             <Helmet>
                 <title>Music School-Register</title>
             </Helmet>
