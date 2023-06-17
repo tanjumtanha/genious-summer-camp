@@ -90,8 +90,8 @@ const AllUsers = () => {
                 <title>Music School - All User</title>
             </Helmet>
             <h2 className="text-center text-4xl text-blue-600">All Users</h2>
-            <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+            <div className="overflow-x-auto p-8">
+                <table className="table table-zebra w-full bg-violet-200">
                     {/* head */}
                     <thead>
                         <tr>
@@ -130,7 +130,7 @@ const AllUsers = () => {
                                         </button>
                                     )}
                                 </td>
-                                <td>
+                                <td className="text-center">
                                     <button
                                         onClick={() => handleDelete(user)}
                                         className="btn btn-ghost bg-violet-400 text-white"
