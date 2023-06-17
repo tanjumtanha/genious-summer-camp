@@ -7,17 +7,22 @@ import 'aos/dist/aos.css';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 import useCart from '../../hooks/useCart';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AllClass = () => {
     const [classes, setClasses] = useState([]);
-    const [,refetch] = useCart();
+    const [, refetch] = useCart();
     const { user } = useContext(AuthContext);
+    const [axiosSecure] = useAxiosSecure();
 
     useEffect(() => {
-        fetch('http://localhost:5000/allClass')
-            .then((res) => res.json())
-            .then((data) => {
-                setClasses(data);
+        axiosSecure
+            .get('/allClass')
+            .then((response) => {
+                const filteredClasses = response.data.filter(
+                    (musicClass) => musicClass.status !== 'pending'
+                );
+                setClasses(filteredClasses);
                 AOS.init();
             })
             .catch((error) => {
@@ -25,33 +30,36 @@ const AllClass = () => {
             });
     }, []);
 
-    const handelAddClass = item => {
-        console.log(item)
+    const handelAddClass = (item) => {
         if (user && user.email) {
-            const { _id, name, image, instructor, price } = item; // Destructure the item object to access the image property
-            const cartItem = { classId: _id, name, image, instructor, price, email: user.email }
-            fetch('http://localhost:5000/selectedClass', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(cartItem)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.insertedId) {
-                        refetch(); // refetch cart to update the number of items in the cart
+            const { _id, name, image, instructor, price } = item;
+            const cartItem = {
+                classId: _id,
+                name,
+                image,
+                instructor,
+                price,
+                email: user.email,
+            };
+            axiosSecure
+                .post('/selectedClass', cartItem)
+                .then((response) => {
+                    if (response.data.insertedId) {
+                        refetch();
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
                             title: 'You have taken the class successfully',
                             showConfirmButton: false,
-                            timer: 1500
-                        })
+                            timer: 1500,
+                        });
                     }
                 })
+                .catch((error) => {
+                    console.error('Error adding class:', error);
+                });
         }
-    }
+    };
     return (
         <section className="container mx-auto bg-violet-200 p-4">
             <Helmet>

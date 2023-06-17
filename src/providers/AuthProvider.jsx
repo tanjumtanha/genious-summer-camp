@@ -35,26 +35,23 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    const updateUserData = (user,name,photo) =>{
-        console.log(name,photo)
+    const updateUserData = (user, name, photo) => {
         return updateProfile(user, {
-            displayName:name,
-            photoURL:photo,
+            displayName: name,
+            photoURL: photo,
         })
-        
+
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
-            console.log('current user', currentUser);
             setLoading(false);
 
             // get and set token
             if (currentUser) {
                 axios.post('http://localhost:5000/jwt', { email: currentUser.email })
                     .then(data => {
-                        console.log(data.data.token)
                         localStorage.setItem('access-token', data.data.token)
                         setLoading(false);
                     })
