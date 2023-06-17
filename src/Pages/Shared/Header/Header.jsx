@@ -69,7 +69,7 @@ const Header = () => {
                         Classes
                     </Link>
                     <Link
-                        to="/dashboard"
+                        to="/dashboard/home"
                         className="block mt-4 ml-2 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
                         onClick={toggleMenu}
                     >

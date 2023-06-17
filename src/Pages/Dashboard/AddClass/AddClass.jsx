@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { Helmet } from 'react-helmet-async';
 import Title from '../../../components/Title/Title';
+import { Link } from 'react-router-dom';
 
 const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
@@ -100,7 +101,7 @@ const AddClass = () => {
                     </label>
                     <input type="file" {...register("image", { required: true })} className="file-input file-input-bordered w-full " />
                 </div>
-                <input className="btn btn-sm mt-4 bg-blue-300 hover:bg-blue-500" type="submit" value="Add Class" />
+                <Link to="/dashboard/myClasses"><input className="btn btn-sm mt-4 bg-blue-300 hover:bg-blue-500" type="submit" value="Add Class" /></Link>
             </form>
         </div>
     );

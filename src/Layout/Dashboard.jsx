@@ -8,7 +8,7 @@ import useInstructor from '../hooks/useInstructor';
 const Dashboard = () => {
 
     const [isAdmin] = useAdmin();
-    const [isInstructor] =useInstructor();
+    const [isInstructor] = useInstructor();
     return (
         <section className='bg-blue-200 p-4'>
             <Helmet>
@@ -31,6 +31,7 @@ const Dashboard = () => {
                             {
                                 isAdmin ? (
                                     <div>
+                                        <li><NavLink to='home'>Home</NavLink></li>
                                         <li><NavLink to='manageClasses'>Manage Classes</NavLink></li>
                                         <li><NavLink to='manageUser'>Manage User</NavLink></li>
                                         <div className='divider'></div>
@@ -39,6 +40,7 @@ const Dashboard = () => {
 
                                 ) : isInstructor ? (
                                     <div>
+                                        <li><NavLink to='home'>Home</NavLink></li>
                                         <li><NavLink to='addClass'>Add a Class</NavLink></li>
                                         <li><NavLink to='myClasses'>My Classes</NavLink></li>
                                         <div className='divider'></div>
@@ -47,6 +49,7 @@ const Dashboard = () => {
                                 ) :
                                     (
                                         <div>
+                                            <li><NavLink to='home'>Home</NavLink></li>
                                             <li><NavLink to='mySelectedClasses'>My Selected Class</NavLink></li>
                                             <li><NavLink to='enrollClasses'>My Enroll Class</NavLink></li>
                                             <li><NavLink to='paymentHistory'><FaWallet></FaWallet>Payments</NavLink></li>

@@ -5,6 +5,7 @@ import { Loader } from 'react-feather';
 import Swal from 'sweetalert2';
 import Title from '../../../components/Title/Title';
 import { FaTrashAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const SelectedClass = () => {
     const [cart, refetch] = useCart();
@@ -86,9 +87,9 @@ const SelectedClass = () => {
                                         </button>
                                     </td>
                                     <td>
-                                        <button className="ml-2 btn btn-outline btn-secondary hover:bg-violet-300 text-white py-1 px-2 rounded">
+                                        <Link to="/dashboard/pay"><button className="ml-2 btn btn-outline btn-secondary hover:bg-violet-300 text-white py-1 px-2 rounded">
                                             Payment
-                                        </button>
+                                        </button></Link>
                                     </td>
                                 </tr>
                             ))}
