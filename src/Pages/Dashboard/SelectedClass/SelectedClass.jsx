@@ -23,20 +23,20 @@ const SelectedClass = () => {
                 cancelButtonText: 'Cancel',
                 reverseButtons: true,
             });
-    
+
             if (result.isConfirmed) {
                 await fetch(`http://localhost:5000/selectedClass/${classId}`, {
                     method: 'DELETE',
                 });
                 refetch();
-    
+
                 Swal.fire('Deleted!', 'The class has been deleted.', 'success');
             }
         } catch (error) {
             console.error('Error deleting class:', error);
         }
     };
-    
+
 
     return (
         <div>
@@ -65,9 +65,9 @@ const SelectedClass = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {cart.map((classItem,index) => (
+                            {cart.map((classItem, index) => (
                                 <tr key={classItem._id}>
-                                    <td className='text-center'>{index+1}</td>
+                                    <td className='text-center'>{index + 1}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">
                                         <img
                                             src={classItem.image}
@@ -87,9 +87,11 @@ const SelectedClass = () => {
                                         </button>
                                     </td>
                                     <td>
-                                        <Link to="/dashboard/pay"><button className="ml-2 btn btn-outline btn-secondary hover:bg-violet-300 text-white py-1 px-2 rounded">
-                                            Payment
-                                        </button></Link>
+                                        <Link to={`/dashboard/pay?price=${classItem.price}`}>
+                                            <button className="ml-2 btn btn-outline btn-secondary hover:bg-violet-300 text-white py-1 px-2 rounded">
+                                                Payment
+                                            </button>
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}

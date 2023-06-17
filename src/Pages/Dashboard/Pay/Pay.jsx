@@ -1,26 +1,35 @@
-import React from 'react';
-import { loadStripe } from "@stripe/stripe-js";
-//import CheckoutForm from "./CheckoutForm";
-import { Elements } from "@stripe/react-stripe-js";
-import useCart from "../../../hooks/useCart";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from './CheckoutForm';
+import { Elements } from '@stripe/react-stripe-js';
+import useCart from '../../../hooks/useCart';
 import { Helmet } from 'react-helmet-async';
 import Title from '../../../components/Title/Title';
 
-// TODO: provide publishable Key
-const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
-const Payment = () => {
+const Pay = () => {
+    const location = useLocation();
+    const [price, setPrice] = useState('');
     const [cart] = useCart();
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    const price = parseFloat(total.toFixed(2))
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const price = searchParams.get('price');
+        setPrice(parseFloat(price).toFixed(2)); // Convert to float and fix to two decimal points
+    }, [location.search]);
+    console.log(price)
+
     return (
-        <div className='w-full'>
+        <div className="w-full">
             <Helmet>Music School - Payment</Helmet>
             <Title heading={'Payment'}></Title>
-            <Elements stripe={stripePromise}>
-                {/* <CheckoutForm cart={cart} price={price}></CheckoutForm> */}
-            </Elements>
+            {price && (
+                <Elements stripe={loadStripe(import.meta.env.VITE_Payment_Gateway_PK)}>
+                    <CheckoutForm cart={cart} price={price}></CheckoutForm>
+                </Elements>
+            )}
         </div>
     );
 };
 
-export default Payment;
+export default Pay;

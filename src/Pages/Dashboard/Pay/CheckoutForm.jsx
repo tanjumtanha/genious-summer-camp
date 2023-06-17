@@ -20,7 +20,6 @@ const CheckoutForm = ({ cart, price }) => {
         if (price > 0) {
             axiosSecure.post('/create-payment-intent', { price })
                 .then(res => {
-                    console.log(res.data.clientSecret)
                     setClientSecret(res.data.clientSecret);
                 })
         }
@@ -45,12 +44,10 @@ const CheckoutForm = ({ cart, price }) => {
         })
 
         if (error) {
-            console.log('error', error)
             setCardError(error.message);
         }
         else {
             setCardError('');
-            // console.log('payment method', paymentMethod)
         }
 
         setProcessing(true)
@@ -91,9 +88,6 @@ const CheckoutForm = ({ cart, price }) => {
             axiosSecure.post('/payments', payment)
                 .then(res => {
                     console.log(res.data);
-                    if (res.data.result.insertedId) {
-                        // display confirm
-                    }
                 })
         }
 
@@ -119,8 +113,8 @@ const CheckoutForm = ({ cart, price }) => {
                         },
                     }}
                 />
-                <button className="btn btn-primary btn-sm mt-4" type="submit" disabled={!stripe || !clientSecret || processing}>
-                    Pay
+                <button className="btn btn-outline btn-primary mt-4" type="submit" disabled={!stripe || !clientSecret || processing}>
+                    Payment
                 </button>
             </form>
             {cardError && <p className="text-red-600 ml-8">{cardError}</p>}

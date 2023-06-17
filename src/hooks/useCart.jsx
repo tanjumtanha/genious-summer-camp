@@ -14,7 +14,6 @@ const useCart = () => {
     queryFn: async () => {
       if (user) {
         const res = await axiosSecure(`/selectedClass?email=${user.email}`);
-        console.log('res from axios',res)
         return res.data;
       }
     },

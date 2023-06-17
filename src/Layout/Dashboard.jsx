@@ -31,7 +31,7 @@ const Dashboard = () => {
                             {
                                 isAdmin ? (
                                     <div>
-                                        <li><NavLink to='home'>Home</NavLink></li>
+                                        <li><NavLink to='home'>Welcome</NavLink></li>
                                         <li><NavLink to='manageClasses'>Manage Classes</NavLink></li>
                                         <li><NavLink to='manageUser'>Manage User</NavLink></li>
                                         <div className='divider'></div>
@@ -40,7 +40,7 @@ const Dashboard = () => {
 
                                 ) : isInstructor ? (
                                     <div>
-                                        <li><NavLink to='home'>Home</NavLink></li>
+                                        <li><NavLink to='home'>Welcome</NavLink></li>
                                         <li><NavLink to='addClass'>Add a Class</NavLink></li>
                                         <li><NavLink to='myClasses'>My Classes</NavLink></li>
                                         <div className='divider'></div>
@@ -49,7 +49,7 @@ const Dashboard = () => {
                                 ) :
                                     (
                                         <div>
-                                            <li><NavLink to='home'>Home</NavLink></li>
+                                            <li><NavLink to='home'>Welcome</NavLink></li>
                                             <li><NavLink to='mySelectedClasses'>My Selected Class</NavLink></li>
                                             <li><NavLink to='enrollClasses'>My Enroll Class</NavLink></li>
                                             <li><NavLink to='paymentHistory'><FaWallet></FaWallet>Payments</NavLink></li>
