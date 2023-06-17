@@ -37,7 +37,6 @@ const SelectedClass = () => {
         }
     };
 
-
     return (
         <div>
             <Helmet>
@@ -67,7 +66,7 @@ const SelectedClass = () => {
                         <tbody>
                             {cart.map((classItem, index) => (
                                 <tr key={classItem._id}>
-                                    <td className='text-center'>{index + 1}</td>
+                                    <td className="text-center">{index + 1}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">
                                         <img
                                             src={classItem.image}
@@ -75,9 +74,15 @@ const SelectedClass = () => {
                                             className="rounded-full h-10 w-10"
                                         />
                                     </td>
-                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.name}</td>
-                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.instructor}</td>
-                                    <td className="py-2 px-4 border-b text-center border-gray-300">{classItem.price}</td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">
+                                        {classItem.name}
+                                    </td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">
+                                        {classItem.instructor}
+                                    </td>
+                                    <td className="py-2 px-4 border-b text-center border-gray-300">
+                                        {classItem.price}
+                                    </td>
                                     <td className="py-2 px-4 border-b text-center border-gray-300">
                                         <button
                                             className="text-red-500 hover:text-red-700"

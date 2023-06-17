@@ -17,7 +17,7 @@ const Pay = () => {
         const price = searchParams.get('price');
         setPrice(parseFloat(price).toFixed(2)); // Convert to float and fix to two decimal points
     }, [location.search]);
-    console.log(price)
+    console.log
 
     return (
         <div className="w-full">

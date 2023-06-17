@@ -66,7 +66,7 @@ const CheckoutForm = ({ cart, price }) => {
         );
 
         if (confirmError) {
-            console.log(confirmError);
+            setCardError(confirmError);
         }
 
         console.log('payment intent', paymentIntent)
@@ -79,11 +79,7 @@ const CheckoutForm = ({ cart, price }) => {
                 transactionId: paymentIntent.id,
                 price,
                 date: new Date(),
-                quantity: cart.length,
-                cartItems: cart.map(item => item._id),
-                menuItems: cart.map(item => item.menuItemId),
                 status: 'service pending',
-                itemNames: cart.map(item => item.name)
             }
             axiosSecure.post('/payments', payment)
                 .then(res => {
